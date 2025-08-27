@@ -10,7 +10,10 @@ import { useStore } from './store/useStore'
 import { cn } from './lib/utils'
 
 function App() {
-  const { currentDocument, sidebarOpen, darkMode } = useStore()
+  const { currentDocument, sidebarOpen, darkMode, searchQuery, selectedCategory } = useStore()
+  
+  // 判断是否在首页（没有搜索查询且没有选择分类）
+  const isHomePage = !searchQuery && !selectedCategory && !currentDocument
 
   React.useEffect(() => {
     if (darkMode) {
@@ -25,11 +28,12 @@ function App() {
       <Header />
       
       <div className="flex">
-        <Sidebar />
+        {/* 只在非首页时显示侧边栏 */}
+        {!isHomePage && <Sidebar />}
         
         <main className={cn(
           "flex-1 transition-all duration-300",
-          sidebarOpen ? "lg:ml-80" : "ml-0"
+          !isHomePage && sidebarOpen ? "lg:ml-80" : "ml-0"
         )}>
           <AnimatePresence mode="wait">
             {currentDocument ? (
@@ -55,16 +59,19 @@ function App() {
                 transition={{ duration: 0.3 }}
               >
                 {/* Show hero section only when no search query and no category selected */}
-                {!useStore.getState().searchQuery && !useStore.getState().selectedCategory && (
+                {isHomePage && (
                   <>
                     <HeroSection />
                     <StatsSection />
                   </>
                 )}
                 
-                <div className="px-4 py-6 sm:px-6 lg:px-8">
-                  <DocumentList />
-                </div>
+                {/* 只在非首页时显示文档列表 */}
+                {!isHomePage && (
+                  <div className="px-4 py-6 sm:px-6 lg:px-8">
+                    <DocumentList />
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

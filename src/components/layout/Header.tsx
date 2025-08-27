@@ -12,8 +12,13 @@ export function Header() {
     sidebarOpen, 
     setSidebarOpen, 
     darkMode, 
-    toggleDarkMode 
+    toggleDarkMode,
+    selectedCategory,
+    currentDocument
   } = useStore()
+  
+  // 判断是否在首页
+  const isHomePage = !searchQuery && !selectedCategory && !currentDocument
 
   return (
     <motion.header 
@@ -28,7 +33,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="lg:hidden"
+            className={cn("lg:hidden", isHomePage && "hidden")}
           >
             <Menu className="h-5 w-5" />
           </Button>
