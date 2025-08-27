@@ -16,9 +16,10 @@ export function DocumentCard({ document, onClick }: DocumentCardProps) {
       whileHover={{ y: -4, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", damping: 25, stiffness: 300 }}
+      className="w-full max-w-sm mx-auto"
     >
       <Card 
-        className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/10 border-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50"
+        className="cursor-pointer transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/10 border-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 h-full"
         onClick={onClick}
       >
         <CardHeader className="pb-3">

@@ -80,7 +80,7 @@ export function DocumentList() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl mx-auto space-y-6">
       {/* Results header */}
       <div className="flex items-center justify-between">
         <div>
@@ -102,7 +102,7 @@ export function DocumentList() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ staggerChildren: 0.1 }}
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center"
       >
         {filteredDocuments.map((document, index) => (
           <motion.div

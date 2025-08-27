@@ -39,7 +39,7 @@ function App() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="p-6"
+                className="px-4 py-6 sm:px-6 lg:px-8"
               >
                 <DocumentViewer
                   document={currentDocument}
@@ -62,7 +62,7 @@ function App() {
                   </>
                 )}
                 
-                <div className="p-6">
+                <div className="px-4 py-6 sm:px-6 lg:px-8">
                   <DocumentList />
                 </div>
               </motion.div>
