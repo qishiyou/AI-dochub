@@ -4,6 +4,7 @@ import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
 import { useStore } from '../../store/useStore'
 import { motion } from 'framer-motion'
+import { cn } from '../../lib/utils'
 
 export function Header() {
   const { 
