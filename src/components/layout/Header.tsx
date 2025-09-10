@@ -1,8 +1,10 @@
 import React from 'react'
-import { Search, Menu, Moon, Sun, Bell, User } from 'lucide-react'
+import { Search, Menu, Moon, Sun, Bell, User, LogOut } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
-import { useStore } from '../../store/useStore'
+import { useStore } from '../../store/useStore' 
+import { useAuthStore } from '../../store/authStore'
+import { LoginForm } from '../auth/LoginForm'
 import { motion } from 'framer-motion'
 import { cn } from '../../lib/utils'
 
@@ -17,6 +19,9 @@ export function Header() {
     selectedCategory,
     currentDocument
   } = useStore()
+  
+  const { user, isAuthenticated, logout } = useAuthStore()
+  const [showLogin, setShowLogin] = React.useState(false)
   
   // 判断是否在首页
   const isHomePage = !searchQuery && !selectedCategory && !currentDocument
@@ -83,11 +88,29 @@ export function Header() {
             )}
           </Button>
           
-          <Button variant="ghost" size="icon">
-            <User className="h-5 w-5" />
-          </Button>
+          {isAuthenticated ? (
+            <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">
+                    {user?.profile.displayName.charAt(0)}
+                  </span>
+                </div>
+                <span className="text-sm font-medium">{user?.profile.displayName}</span>
+              </div>
+              <Button variant="ghost" size="icon" onClick={logout}>
+                <LogOut className="h-5 w-5" />
+              </Button>
+            </div>
+          ) : (
+            <Button variant="ghost" size="icon" onClick={() => setShowLogin(true)}>
+              <User className="h-5 w-5" />
+            </Button>
+          )}
         </div>
       </div>
+      
+      {showLogin && <LoginForm onClose={() => setShowLogin(false)} />}
     </motion.header>
   )
 }
