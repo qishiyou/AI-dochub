@@ -7,6 +7,7 @@ import { useAuthStore } from '../../store/authStore'
 import { LoginForm } from '../auth/LoginForm'
 import { motion } from 'framer-motion'
 import { cn } from '../../lib/utils'
+import { createPortal } from 'react-dom'
 
 export function Header() {
   const { 
@@ -110,7 +111,10 @@ export function Header() {
         </div>
       </div>
       
-      {showLogin && <LoginForm onClose={() => setShowLogin(false)} />}
+      {showLogin && createPortal(
+        <LoginForm onClose={() => setShowLogin(false)} />,
+        document.body
+      )}
     </motion.header>
   )
 }
